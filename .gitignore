@@ -1,6 +1,7 @@
 # Local .terraform directories
 **/.terraform/*
-
+# Local .sonarlint directories
+**/.sonarlint/*
 # .tfstate files
 *.tfstate
 *.tfstate.*
