@@ -7,6 +7,12 @@ variable "aws_region" {
   default     = "us-east-1"
 }
 
+variable "aws_profile" {
+  description = "AWS profile"
+  type        = string
+  default     = "lb-aws-admin"
+}
+
 variable "vpc_cidr_block" {
   description = "CIDR block for VPC"
   type        = string
