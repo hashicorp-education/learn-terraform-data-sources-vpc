@@ -52,3 +52,5 @@ module "lb_security_group" {
 
   ingress_cidr_blocks = ["0.0.0.0/0"]
 }
+
+data "aws_region" "current" { }
