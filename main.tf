@@ -6,18 +6,9 @@ provider "aws" {
   profile = var.aws_profile
 }
 
-data "aws_availability_zones" "available" {
-  state = "available"
-
-  filter {
-    name   = "zone-type"
-    values = ["availability-zone"]
-  }
-}
-
 module "vpc" {
   source  = "terraform-aws-modules/vpc/aws"
-  version = "3.14.0"
+  version = ">= 3.14.0"
 
   cidr = var.vpc_cidr_block
 
@@ -33,7 +24,7 @@ module "vpc" {
 
 module "app_security_group" {
   source  = "terraform-aws-modules/security-group/aws//modules/web"
-  version = "4.9.0"
+  version = ">= 4.9.0"
 
   name        = "web-server-sg"
   description = "Security group for web-servers with HTTP ports open within VPC"
@@ -44,13 +35,22 @@ module "app_security_group" {
 
 module "lb_security_group" {
   source  = "terraform-aws-modules/security-group/aws//modules/web"
-  version = "4.9.0"
+  version = ">= 4.9.0"
 
   name        = "lb-sg-project-alpha-dev"
   description = "Security group for load balancer with HTTP ports open within VPC"
   vpc_id      = module.vpc.vpc_id
 
   ingress_cidr_blocks = ["0.0.0.0/0"]
+}
+
+data "aws_availability_zones" "available" {
+  state = "available"
+
+  filter {
+    name   = "zone-type"
+    values = ["availability-zone"]
+  }
 }
 
 data "aws_region" "current" { }
